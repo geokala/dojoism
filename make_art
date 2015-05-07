@@ -1,0 +1,64 @@
+#! /usr/bin/env python
+from music21 import *
+import random
+import sys
+environment.set('midiPath', str('/usr/bin/timidity'))
+environment.set('musicxmlPath', str('/usr/bin/musescore'))
+
+def make_amazing_art(name):
+    tune = stream.Score()
+    ponder = stream.Part()
+    melody = stream.Part()
+    random.seed(name)
+    for thing in range(16):
+        chord_or_note =random.randint(1,3)
+        if chord_or_note == 1:
+            # Note
+            ponder.append(note.Note(random.randint(-30, 30), quarterLength=2))
+        else:
+            # Chord
+            ponder.append(chord.Chord([
+                random.randint(-30, 30),
+                random.randint(-30, 30),
+                random.randint(-30, 30)],
+                quarterLength=2),
+                )
+
+    for thing in range(16):
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+
+    tune.insert(0, ponder)
+    tune.insert(0, melody)
+    tune.show('midi')
+    tune.show()
+
+
+if __name__ == '__main__':
+    while True:
+        name = raw_input("Enter name of Randomus Namus' student:")
+        if name == 'Randomus Namus':
+            print('This is no venue for the performance of works of such a master!')
+            print('Randomus has performed before such grand venues as:')
+            print(' London!')
+            print(' Paris!')
+            print(' Scunthorpe!')
+            print(' Hamburg!')
+            print(' Stockholm!')
+            print(' Munich!')
+            print(' Toronto!')
+            print(' Lusaka!')
+            print('')
+            print('He apprenticed under the greatest masters in the Trinity Laban '
+                  'conservatoire of music in Reddich!')
+            print('He has performed before king impersonators at a young age!')
+            print('He personally supported a leading Elvis Impersonator at Butlins '
+                  'in Brussels at the age of 5!')
+            print('')
+            print('With a history such as this you cannot expect him to perform '
+                  'before you!')
+            print('Be grateful to hear the works of his second greatest students!')
+            sys.exit()
+        make_amazing_art(name)
