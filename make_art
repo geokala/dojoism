@@ -8,7 +8,18 @@ def make_amazing_art(name):
     tune = stream.Score()
     random.seed(name)
     for thing in range(len(name) * random.randint(1, 20)):
-        tune.append(note.Note(random.randint(-30, 30), quarterLength=2))
+        chord_or_note =random.randint(1,3)
+        if chord_or_note == 1:
+            # Note
+            tune.append(note.Note(random.randint(-30, 30), quarterLength=2))
+        else:
+            # Chord
+            tune.append(chord.Chord([
+                random.randint(-30, 30),
+                random.randint(-30, 30),
+                random.randint(-30, 30)],
+                quarterLength=2),
+                )
     tune.show('midi')
     tune.show()
 
