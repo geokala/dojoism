@@ -3,6 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
+from itertools import cycle
 import cocos
 from pyglet import clock
 import random
@@ -26,18 +27,23 @@ class HelloWorld(cocos.layer.Layer):
         self.add(self.left)
         self.add(self.right)
 
+        self.steps = cycle([
+            random.choice([
+                self.hop_left,
+                self.hop_right,
+                self.wait,
+                self.step_left,
+                self.step_right,
+                self.wiggle,
+                self.reset,
+                self.reset,
+            ]) for _ in range(7)] + [self.reset]
+        )
+
         clock.schedule_interval(self.next_step, 0.5)
 
     def next_step(self, dt):
-        random.choice([
-            self.hop_left,
-            self.hop_right,
-            self.reset,
-            self.wait,
-            self.step_left,
-            self.step_right,
-            self.wiggle
-        ])()
+        next(self.steps)()
 
     def hop_right(self):
         move = cocos.actions.MoveBy((100, 100), 0.3) | HOP
