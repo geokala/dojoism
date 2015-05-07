@@ -7,8 +7,8 @@ environment.set('musicxmlPath', str('/usr/bin/musescore'))
 def make_amazing_art(name):
     tune = stream.Score()
     random.seed(name)
-    for thing in range(len(name)):
-        tune.append(note.Note(random.randint(-30, 30)))
+    for thing in range(len(name) * random.randint(1, 20)):
+        tune.append(note.Note(random.randint(-30, 30), quarterLength=2))
     tune.show('midi')
     tune.show()
 
