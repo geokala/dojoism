@@ -1,0 +1,16 @@
+#! /usr/bin/env python3
+from music21 import *
+environment.set('midiPath', str('/usr/bin/timidity'))
+environment.set('musicxmlPath', str('/usr/bin/musescore'))
+
+def make_amazing_art(name):
+    tune = stream.Score()
+    for thing in 'abc':
+        tune.append(note.Note(thing))
+    tune.show('midi')
+    tune.show()
+
+if __name__ == '__main__':
+    while True:
+        name = input("Enter name of Randomus Namus' student:")
+        make_amazing_art(name)
