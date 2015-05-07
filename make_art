@@ -7,20 +7,31 @@ environment.set('musicxmlPath', str('/usr/bin/musescore'))
 
 def make_amazing_art(name):
     tune = stream.Score()
+    ponder = stream.Part()
+    melody = stream.Part()
     random.seed(name)
-    for thing in range(len(name) * random.randint(1, 5)):
+    for thing in range(16):
         chord_or_note =random.randint(1,3)
         if chord_or_note == 1:
             # Note
-            tune.append(note.Note(random.randint(-30, 30), quarterLength=2))
+            ponder.append(note.Note(random.randint(-30, 30), quarterLength=2))
         else:
             # Chord
-            tune.append(chord.Chord([
+            ponder.append(chord.Chord([
                 random.randint(-30, 30),
                 random.randint(-30, 30),
                 random.randint(-30, 30)],
                 quarterLength=2),
                 )
+
+    for thing in range(16):
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+        melody.append(note.Note(random.randint(-30, 30), quarterLength=0.5))
+
+    tune.insert(0, ponder)
+    tune.insert(0, melody)
     tune.show('midi')
     tune.show()
 
